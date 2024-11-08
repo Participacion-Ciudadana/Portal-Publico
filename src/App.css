@@ -47,3 +47,97 @@
 #footer ul li {
   margin: 5px 0;
 }
+
+
+/* Contacto */
+
+#contact .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.contact-section {
+  display: flex;
+  gap: 20px;
+}
+
+.contact-form {
+  flex: 1;
+}
+
+.contact-form h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: black;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  color: black;
+}
+
+.form-group textarea {
+  resize: none;
+  height: 100px;
+  color: black;
+}
+
+.submit-button {
+  background-color: #2a6d2b;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1em;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.contact-info {
+  flex: 0.5;
+  margin-left: 20px;
+}
+
+.contact-info h3 {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+  color: black;
+}
+
+.contact-info p {
+  font-size: 1.1em;
+  margin: 10px 0;
+  color: black;
+}
+
+.contact-info i {
+  margin-right: 10px;
+  color: black;
+}
+
+.social-links a {
+  font-size: 1.5em;
+  margin-right: 10px;
+  color: #333;
+  text-decoration: none;
+}
+
+.social-links a:hover {
+  color: #2a6d2b;
+}

@@ -1,6 +1,26 @@
 import React from "react";
+import { useLocation, useNavigate } from 'react-router-dom';
+
+
 
 export const Navigation = (props) => {
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === "/") {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    } else {
+      // Navega al inicio
+      navigate('/');
+    }
+  };
+  
   return (
     <nav id="menu" className="navbar navbar-default navbar-fixed-top">
       <div className="container">
@@ -17,7 +37,7 @@ export const Navigation = (props) => {
             <span className="icon-bar"></span>{" "}
             <span className="icon-bar"></span>{" "}
           </button>
-          <a className="navbar-brand page-scroll" href="#page-top">
+          <a className="navbar-brand page-scroll" onClick={handleClick}  href="#page-top">
             {/* React Landing Page */}
             <img src="img/logo.jpeg" height={50} width={50} alt="logo"  />
           </a>{" "}
@@ -29,10 +49,11 @@ export const Navigation = (props) => {
         >
           <ul className="nav navbar-nav navbar-right">
             <li>
-              <a href="#features" className="page-scroll">
-                Inicio
-              </a>
+            <a href="/" onClick={handleClick} className="page-scroll">
+            Inicio
+          </a>
             </li>
+            
             {/* <li>
               <a href="#about" className="page-scroll">
                 Contacto
@@ -59,8 +80,8 @@ export const Navigation = (props) => {
               </a>
             </li> */}
             <li>
-              <a href="#contact" className="page-scroll">
-                Contacto
+              <a href="/contacto" className="page-scroll">
+              contacto
               </a>
             </li>
             <li>
