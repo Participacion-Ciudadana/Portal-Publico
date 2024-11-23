@@ -6,8 +6,7 @@ import { About } from "./components/about";
 import { Contact } from "./components/contact";
 import { Footer } from "./components/footer";
 import { Indicadores } from "./components/indicadores";
-// import { MapaYSelectores } from "./components/mapa";
-import {Mapa} from './components/map';
+import {DominicanRepublicMap} from './components/map';
 
 import JsonData from "./data/data.json";
 import SmoothScroll from "smooth-scroll";
@@ -34,8 +33,7 @@ const App = () => {
             <>
               <Header data={landingPageData.Header} />
               <Indicadores />
-              <Mapa />
-              {/* <MapaYSelectores /> */}
+              <DominicanRepublicMap />
               <About data={landingPageData.About} />
               <Footer data={landingPageData.Footer} />
             </>
