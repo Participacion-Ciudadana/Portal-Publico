@@ -3,6 +3,8 @@ import * as XLSX from "xlsx";
 import { FaFileExcel } from "react-icons/fa"; // Importa el ícono de Excel
 
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3000";
+
 export const DominicanRepublicMap = () => {
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedMunicipality, setSelectedMunicipality] = useState("");
@@ -206,41 +208,26 @@ export const DominicanRepublicMap = () => {
     setSelectedMunicipality(""); // Reset municipality selection
   };
 
-  const handleMunicipalityChange = (e) => {
+  const handleMunicipalityChange = async (e) => {
     const municipality = e.target.value;
     setSelectedMunicipality(municipality);
-
-
-
+  
     if (selectedProvince && municipality) {
-      // Simula la llamada a una API para obtener los archivos relacionados
-      const fetchedFiles = [
-        { name: `${municipality}-archivo1.xlsx`, url: "https://via.placeholder.com/150" },
-        { name: `${municipality}-archivo2.xlsx`, url: "https://via.placeholder.com/150" },
-      ];
-      setFiles(fetchedFiles);
+      try {
+        const response = await fetch(
+          `${BACKEND_URL}/uploads/documents/province/${encodeURIComponent(selectedProvince)}/municipality/${encodeURIComponent(municipality)}`
+        );
+  
+        if (!response.ok) {
+          throw new Error("Error al obtener los documentos");
+        }
+  
+        const fetchedFiles = await response.json();
+        setFiles(fetchedFiles);
+      } catch (error) {
+        console.error("Error al buscar documentos:", error);
+      }
     }
-
-    // if (selectedProvince && municipality) {
-    //   // Genera y descarga el archivo Excel
-    //   generateAndDownloadExcel(selectedProvince, municipality);
-    // }
-    
-
-    // if (selectedProvince && municipality) {
-    //   // Llamada a la API con la provincia y el municipio seleccionados
-    //   fetch(
-    //     `https://api.example.com/documents?province=${selectedProvince}&municipality=${municipality}`
-    //   )
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       console.log("Documentos encontrados:", data);
-    //       // Maneja la respuesta de la API aquí
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error al buscar documentos:", error);
-    //     });
-    // }
   };
 
   const generateAndDownloadExcel = (province, municipality) => {
