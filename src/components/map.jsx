@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import * as XLSX from "xlsx";
-import { FaFileExcel } from "react-icons/fa"; // Importa el ícono de Excel
+// import * as XLSX from "xlsx";
+import { FaFilePdf } from "react-icons/fa";
 
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3000";
@@ -10,9 +10,9 @@ export const DominicanRepublicMap = () => {
   const [selectedMunicipality, setSelectedMunicipality] = useState("");
   const [provinceInfo, setProvinceInfo] = useState("");
   const [municipalities, setMunicipalities] = useState([]);
-  const [files, setFiles] = useState([]); // Archivos para mostrar después de la selección
+  const [files, setFiles] = useState([]);
+  const [documents, setDocuments] = useState([]);
 
-  // Lista de provincias con sus municipios
   const provinces = [
     {
       name: "Santo Domingo de Guzmán",
@@ -197,7 +197,7 @@ export const DominicanRepublicMap = () => {
     }
   };
 
-  const handleProvinceChange = (e) => {
+   const handleProvinceChange = (e) => {
     const province = e.target.value;
     const filteredProvinces = provinces.filter((p) => p.province === province);
     const firstProvinceInfo = filteredProvinces[0]?.info || "";
@@ -205,52 +205,67 @@ export const DominicanRepublicMap = () => {
     setSelectedProvince(province);
     setProvinceInfo(firstProvinceInfo);
     setMunicipalities(filteredProvinces.map((p) => p.name));
-    setSelectedMunicipality(""); // Reset municipality selection
+    setSelectedMunicipality("");
+    setDocuments([]);
   };
 
   const handleMunicipalityChange = async (e) => {
     const municipality = e.target.value;
     setSelectedMunicipality(municipality);
-  
+
     if (selectedProvince && municipality) {
       try {
         const response = await fetch(
-          `${BACKEND_URL}/uploads/documents/province/${encodeURIComponent(selectedProvince)}/municipality/${encodeURIComponent(municipality)}`
+          `${BACKEND_URL}/uploads/documents/province/${encodeURIComponent(
+            selectedProvince
+          )}/municipality/${encodeURIComponent(municipality)}`
         );
-  
+
         if (!response.ok) {
           throw new Error("Error al obtener los documentos");
         }
-  
-        const fetchedFiles = await response.json();
-        setFiles(fetchedFiles);
+
+        if(response?.statusCode === 404){
+          setDocuments([]);
+        }
+        const { documents } = await response.json();
+
+        if(documents){
+          setDocuments(documents);
+        }
+
+
+      
       } catch (error) {
         console.error("Error al buscar documentos:", error);
       }
     }
   };
 
-  const generateAndDownloadExcel = (province, municipality) => {
-    if (!selectedMunicipality) {
-      alert("Por favor, selecciona un municipio.");
-      return;
+  const downloadFile = async (filename, path) => {
+    try {
+      const response = await fetch(
+        `${BACKEND_URL}/uploads/download/file?filename=${encodeURIComponent(
+          filename
+        )}&origen_path=${encodeURIComponent(path)}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al descargar el archivo");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", filename);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    } catch (error) {
+      console.error("Error al descargar el archivo:", error);
+      alert("Error al descargar el archivo. Por favor, inténtalo nuevamente.");
     }
-
-
-    const data = [
-      {
-        "Provincia Seleccionada": province,
-        "Municipio Seleccionado": municipality,
-        Detalle: "Información adicional",
-      },
-    ];
-
-    const worksheet = XLSX.utils.json_to_sheet(data);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Datos");
-
-    // Generar archivo Excel
-    XLSX.writeFile(workbook, `Datos_${province}_${municipality}.xlsx`);
   };
 
   return (
@@ -766,11 +781,20 @@ export const DominicanRepublicMap = () => {
           display: selectedMunicipality ? "block" : "none",
         }}
       >
+          <div
+        style={{
+          marginTop: "20px",
+          padding: "10px",
+          border: "1px solid #ddd",
+          borderRadius: "5px",
+          display: selectedMunicipality ? "block" : "none",
+        }}
+      >
         <h3>Archivos disponibles para descargar</h3>
-        {files.length > 0 ? (
-          files.map((file, index) => (
+        {documents.length > 0 ? (
+          documents.map((doc) => (
             <div
-              key={index}
+              key={doc._id}
               style={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -779,23 +803,23 @@ export const DominicanRepublicMap = () => {
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <FaFileExcel size={24} color="green" />
-                <span>{file.name}</span>
+                <FaFilePdf size={24} color="green" />
+                <span>{doc.filename}</span>
               </div>
               <button
-          onClick={generateAndDownloadExcel}
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#2a6d2b",
-            color: "#fff",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-          }}
-        >
+                onClick={() => downloadFile(doc.filename, doc.path)}
+                style={{
+                  padding: "10px 20px",
+                  backgroundColor: "green",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+              >
                 Descargar
               </button>
             </div>
@@ -804,6 +828,7 @@ export const DominicanRepublicMap = () => {
           <p>No hay archivos disponibles para este municipio.</p>
         )}
       </div>
+    </div>
   
 
       {/* <div
