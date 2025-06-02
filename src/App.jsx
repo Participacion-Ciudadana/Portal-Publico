@@ -7,6 +7,8 @@ import { Contact } from "./components/contact";
 import { Footer } from "./components/footer";
 import { Indicadores } from "./components/indicadores";
 import {DominicanRepublicMap} from './components/map';
+import MacroIndicatorFiles from "./components/MacroIndicatorFiles";
+import ViewMatrix from "./components/ViewMatrix";
 
 import JsonData from "./data/data.json";
 import SmoothScroll from "smooth-scroll";
@@ -34,6 +36,7 @@ const App = () => {
               <Header data={landingPageData.Header} />
               <Indicadores />
               <DominicanRepublicMap />
+              <MacroIndicatorFiles />
               <About data={landingPageData.About} />
               <Footer data={landingPageData.Footer} />
             </>
@@ -48,6 +51,10 @@ const App = () => {
           <Footer data={landingPageData.Footer} />
           </>
           }
+        />
+        <Route
+          path="/ver-matriz/:filename/:path"
+          element={<ViewMatrix />}
         />
       </Routes>
     </Router>
