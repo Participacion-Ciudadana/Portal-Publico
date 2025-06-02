@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-// import * as XLSX from "xlsx";
 import { FaFilePdf } from "react-icons/fa";
+import MacroIndicatorFiles from "./MacroIndicatorFiles";
 
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3000";
@@ -12,6 +12,7 @@ export const DominicanRepublicMap = () => {
   const [municipalities, setMunicipalities] = useState([]);
   const [files, setFiles] = useState([]);
   const [documents, setDocuments] = useState([]);
+  const [filesData, setFilesData] = useState([]);
 
   const provinces = [
     {
@@ -197,18 +198,50 @@ export const DominicanRepublicMap = () => {
     }
   };
 
-   const handleProvinceChange = (e) => {
+  const handleProvinceChange = async (e) => {
     const province = e.target.value;
     const filteredProvinces = provinces.filter((p) => p.province === province);
     const firstProvinceInfo = filteredProvinces[0]?.info || "";
-
+  
     setSelectedProvince(province);
     setProvinceInfo(firstProvinceInfo);
     setMunicipalities(filteredProvinces.map((p) => p.name));
     setSelectedMunicipality("");
     setDocuments([]);
+    setFilesData([]);
+  
+    try {
+      console.log("province", province);
+    
+      const response = await fetch(
+        `${BACKEND_URL}/uploads/macro-indicator/province/${encodeURIComponent(province)}`
+      );
+    
+      console.log("response", response);
+    
+      if (!response.ok) {
+        throw new Error("Error al obtener macroindicadores");
+      }
+    
+      const data = await response.json();
+    
+      const parsed = Array.isArray(data)
+        ? data
+        : Array.isArray(data.files)
+        ? data.files
+        : Array.isArray(data.data)
+        ? data.data
+        : [];
+    
+      console.log("parsed", parsed);
+    
+      setFilesData(parsed);
+    } catch (error) {
+      console.error("Error al obtener macroindicadores:", error);
+    }    
   };
-
+  
+  
   const handleMunicipalityChange = async (e) => {
     const municipality = e.target.value;
     setSelectedMunicipality(municipality);
@@ -267,6 +300,7 @@ export const DominicanRepublicMap = () => {
       alert("Error al descargar el archivo. Por favor, inténtalo nuevamente.");
     }
   };
+  
 
   return (
     <div style={{ textAlign: "center", fontFamily: "Arial, sans-serif" }}>
@@ -829,7 +863,10 @@ export const DominicanRepublicMap = () => {
         )}
       </div>
     </div>
-  
+
+    {filesData && filesData.length > 0 && (
+      <MacroIndicatorFiles filesData={filesData} />
+    )}
 
       {/* <div
         style={{

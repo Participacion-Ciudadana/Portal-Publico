@@ -33,12 +33,17 @@ const downloadFile = async (filename, path) => {
   }
 };
 
-const MacroIndicatorFiles = () => {
+const MacroIndicatorFiles = ({ filesData = null }) => {
   const [files, setFiles] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!filesData);
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (filesData) {
+      setFiles(filesData);
+      return;
+    }
+
     const fetchFiles = async () => {
       try {
         const response = await fetch(`${BACKEND_URL}/uploads/macro-indicator`);
@@ -62,7 +67,7 @@ const MacroIndicatorFiles = () => {
     };
 
     fetchFiles();
-  }, []);
+  }, [filesData]);
 
   return (
     <div style={{ padding: "20px" }}>

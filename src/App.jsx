@@ -7,7 +7,7 @@ import { Contact } from "./components/contact";
 import { Footer } from "./components/footer";
 import { Indicadores } from "./components/indicadores";
 import {DominicanRepublicMap} from './components/map';
-import MacroIndicatorFiles from "./components/MacroIndicatorFiles";
+import MacroIndicatorFilesShow from "./components/MacroIndicatorFilesShow";
 import ViewMatrix from "./components/ViewMatrix";
 
 import JsonData from "./data/data.json";
@@ -36,7 +36,7 @@ const App = () => {
               <Header data={landingPageData.Header} />
               <Indicadores />
               <DominicanRepublicMap />
-              <MacroIndicatorFiles />
+              <MacroIndicatorFilesShow />
               <About data={landingPageData.About} />
               <Footer data={landingPageData.Footer} />
             </>
