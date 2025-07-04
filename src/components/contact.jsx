@@ -95,9 +95,31 @@ export const Contact = (props) => {
             <a className="contact-link" href="mailto:info@pciudadana.org">info@pciudadana.org</a>
             <a className="contact-link"   href="https://www.google.com/maps?q=Calle+Wenceslao+Álvarez+8 Santo+Domingo+DN"  target="_blank" rel="noopener noreferrer">Calle Wenceslao Álvarez #08, Zona Universitaria, Santo Domingo, D.N.</a>
             <div className="social-links">
-              <a href="#"><i className="fab fa-facebook-f"></i></a>
-              <a href="#"><i className="fab fa-twitter"></i></a>
-              <a href="#"><i className="fab fa-linkedin"></i></a>
+            <a
+  href="https://facebook.com/tuPagina"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Facebook"
+>
+  <i className="fab fa-facebook-f" />
+</a>
+<a
+  href="https://twitter.com/tuCuenta"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Twitter"
+>
+  <i className="fab fa-twitter" />
+</a>
+<a
+  href="https://linkedin.com/in/tuPerfil"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="LinkedIn"
+>
+  <i className="fab fa-linkedin" />
+</a>
+
             </div>
           </div>
         </div>
