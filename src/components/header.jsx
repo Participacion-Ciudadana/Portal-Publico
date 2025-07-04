@@ -18,9 +18,9 @@ export const Header = (props) => {
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
-    }, 5000); // Cambia cada 5 segundos
+    }, 5000);
     return () => clearInterval(interval);
-  }, [slides.length]);
+  }, [nextSlide, slides.length]);  
 
   if (slides.length === 0) {
     return <div>Loading...</div>;

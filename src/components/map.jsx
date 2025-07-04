@@ -10,7 +10,6 @@ export const DominicanRepublicMap = () => {
   const [selectedMunicipality, setSelectedMunicipality] = useState("");
   const [provinceInfo, setProvinceInfo] = useState("");
   const [municipalities, setMunicipalities] = useState([]);
-  const [files, setFiles] = useState([]);
   const [documents, setDocuments] = useState([]);
   const [filesData, setFilesData] = useState([]);
 

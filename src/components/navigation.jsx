@@ -90,7 +90,7 @@ export const Navigation = (props) => {
               </a>
             </li>
             <li>
-              <a href="https://atentocontuvoto.org" target="_blank" className="page-scroll">
+              <a href="https://atentocontuvoto.org" target="_blank" className="page-scroll" rel="noopener noreferrer">
                 AtentoContuvoto
               </a>
             </li>
