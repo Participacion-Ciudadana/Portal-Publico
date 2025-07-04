@@ -91,24 +91,9 @@ export const Contact = (props) => {
           </div>
           <div className="contact-info">
             <h3>Contacto</h3>
-            <p>
-              <i className="fa fa-phone" />{" "}
-              <a href="tel:+18096856200">+1 809-685-6200</a>
-            </p>
-            <p>
-              <i className="fa fa-envelope" />{" "}
-              <a href="mailto:info@pciudadana.org">info@pciudadana.org</a>
-            </p>
-            <p>
-              <i className="fa fa-map-marker" />{" "}
-              <a
-                href="https://www.google.com/maps?q=Calle+Wenceslao+Álvarez+8,+Santo+Domingo+DN"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Calle Wenceslao Álvarez #08, Zona Universitaria, Santo Domingo, D.N.
-              </a>
-            </p>
+            <a className="contact-link" href="tel:+18096856200">+1 809-685-6200</a>
+            <a className="contact-link" href="mailto:info@pciudadana.org">info@pciudadana.org</a>
+            <a className="contact-link"   href="https://www.google.com/maps?q=Calle+Wenceslao+Álvarez+8 Santo+Domingo+DN"  target="_blank" rel="noopener noreferrer">Calle Wenceslao Álvarez #08, Zona Universitaria, Santo Domingo, D.N.</a>
             <div className="social-links">
               <a href="#"><i className="fab fa-facebook-f"></i></a>
               <a href="#"><i className="fab fa-twitter"></i></a>
