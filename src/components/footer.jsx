@@ -55,11 +55,11 @@ export const Footer = () => {
             <ul style={{ listStyleType: "none", padding: 0 }}>
               <li>
                 {" "}
-                <a href="#features" className="page-scroll">
+                <a href="#features" className="page-scroll" rel="noopener noreferrer">
                   Inicio
                 </a>
               </li>
-              <li><a href="#contacto" className="page-scroll">
+              <li><a href="#contacto" className="page-scroll" rel="noopener noreferrer">
               Contactos
                 </a></li>
             </ul>
@@ -68,9 +68,9 @@ export const Footer = () => {
           {/* Tercera columna */}
           <div>
             <ul style={{ listStyleType: "none", padding: 0 }}>
-              <li><a href="https://www.facebook.com/pciudadana/" target="_blank" >Facebook</a></li>
-              <li><a href="https://www.instagram.com/pciudadana?igsh=MXF5cDR0azB3eWhsbg==" target="_blank" >Instagram</a></li>
-              <li><a href="https://x.com/PCiudadana" target="_blank" >Twitter</a></li>
+              <li><a href="https://www.facebook.com/pciudadana/" target="_blank" rel="noopener noreferrer" >Facebook</a></li>
+              <li><a href="https://www.instagram.com/pciudadana?igsh=MXF5cDR0azB3eWhsbg==" target="_blank" rel="noopener noreferrer" >Instagram</a></li>
+              <li><a href="https://x.com/PCiudadana" target="_blank" rel="noopener noreferrer">Twitter</a></li>
             </ul>
           </div>
         </div>

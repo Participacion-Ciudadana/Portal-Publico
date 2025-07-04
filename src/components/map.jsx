@@ -8,7 +8,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3000"
 export const DominicanRepublicMap = () => {
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedMunicipality, setSelectedMunicipality] = useState("");
-  const [provinceInfo, setProvinceInfo] = useState("");
+  const [setProvinceInfo] = useState("");
   const [municipalities, setMunicipalities] = useState([]);
   const [documents, setDocuments] = useState([]);
   const [filesData, setFilesData] = useState([]);

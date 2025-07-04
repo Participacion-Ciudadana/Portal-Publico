@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./../Header.css";
 
 export const Header = (props) => {
   const slides = props.data?.slides || [];
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const nextSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-  };
+  const nextSlide = useCallback(() => {
+    setCurrentSlide(prev => (prev + 1) % slides.length);
+  }, [slides.length]);
 
   const prevSlide = () => {
     setCurrentSlide((prevSlide) =>
@@ -16,11 +16,9 @@ export const Header = (props) => {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [nextSlide, slides.length]);  
+    const timer = setInterval(nextSlide, 5000);
+    return () => clearInterval(timer);
+  }, [nextSlide]);
 
   if (slides.length === 0) {
     return <div>Loading...</div>;
